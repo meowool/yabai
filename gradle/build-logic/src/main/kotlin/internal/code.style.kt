@@ -31,10 +31,11 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 
 private const val DownloadPluginJarTask = "copyDetektPlugins"
 
-internal fun Project.lintCodeStyle() {
+internal fun Project.lintCodeStyle() = plugins.withType<KotlinBasePlugin> {
   apply<DetektPlugin>()
   apply<DownloadTaskPlugin>()
   addDetektPlugin(libs.detekt.formatting)
@@ -53,7 +54,11 @@ internal fun Project.addDetektPlugin(dependency: Any) =
 
 
 internal fun Project.addDetektPluginJar(url: String) =
-  tasks.named<Download>(DownloadPluginJarTask) { src(arrayOf(url, src)) }
+  plugins.withType<DetektPlugin> {
+    tasks.named<Download>(DownloadPluginJarTask) { src(arrayOf(url, src)) }
+  }
 
 internal fun Project.configureDetektSource(path: Any) =
-  extensions.configure<DetektExtension> { source.from(path) }
+  plugins.withType<DetektPlugin> {
+    extensions.configure<DetektExtension> { source.from(path) }
+  }

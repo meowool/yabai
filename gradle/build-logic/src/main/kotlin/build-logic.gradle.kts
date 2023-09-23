@@ -31,7 +31,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 
 allprojects {
-  group = "com.chachako.yabai"
+  group = "com.meowool.yabai"
 
   repositories {
     google { filterAndroidDependencies(include = true) }
