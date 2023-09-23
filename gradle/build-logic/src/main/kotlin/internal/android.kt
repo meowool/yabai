@@ -21,6 +21,7 @@ package internal
 
 import com.android.build.api.dsl.ApplicationDefaultConfig
 import com.android.build.api.dsl.CommonExtension
+import com.meowool.cradle.util.isCiEnvironment
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
@@ -51,14 +52,25 @@ internal fun BaseExtension.init(project: Project) = with(project) {
       // Android users.
       targetSdk = compileSdk
     }
-    minSdk = 21
+    minSdk = when {
+      // We choose to distribute APKs with different min-sdk versions through CI,
+      // and use desugar-tools to ensure code compatibility for lower versions.
+      isCiEnvironment -> requireNotNull(providers.environmentVariable("ANDROID_MIN_SDK").orNull) {
+        "The env `ANDROID_MIN_SDK` is required when running on CI."
+      }.toInt().also {
+        // Desugar is only required if the app's min-sdk is less than 26:
+        // https://developer.android.com/studio/write/java8-support#supported_features
+        if (it < 26) {
+          compileOptions.isCoreLibraryDesugaringEnabled = true
+          dependencies.add("coreLibraryDesugaring", libs.android.desugar)
+        }
+      }
+      // We default to raising the minimum version to Android Oreo (8.0).
+      else -> 26
+    }
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
   compileOptions {
-    // We enable desugaring to ensure code compatibility for lower versions:
-    // https://developer.android.com/studio/write/java8-support#supported_features
-    isCoreLibraryDesugaringEnabled = true
-
     sourceCompatibility(JavaToolchainVersion)
     targetCompatibility(JavaToolchainVersion)
   }
@@ -72,8 +84,6 @@ internal fun BaseExtension.init(project: Project) = with(project) {
     "androidTestImplementation"(libs.androidx.test.runner)
     "androidTestImplementation"(libs.androidx.test.rules)
     "androidTestImplementation"(libs.androidx.test.ext.junit)
-
-    "coreLibraryDesugaring"(libs.android.desugar)
   }
 }
 
