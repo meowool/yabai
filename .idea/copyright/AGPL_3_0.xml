@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="allowReplaceRegexp" value="20[0-2][0-9]" />
+    <option name="notice" value="Copyright (C) &amp;#36;today.year Meowool &lt;https://github.com/meowool/graphs/contributors&gt;&#10;&#10;This file is part of the Yabai project &lt;https://github.com/meowool/yabai&gt;.&#10;&#10;Yabai is free software: you can redistribute it and/or modify&#10;it under the terms of the GNU Affero General Public License as&#10;published by the Free Software Foundation, either version 3 of the&#10;License, or (at your option) any later version.&#10;&#10;Yabai is distributed in the hope that it will be useful,&#10;but WITHOUT ANY WARRANTY; without even the implied warranty of&#10;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10;GNU Affero General Public License for more details.&#10;&#10;You should have received a copy of the GNU Affero General Public License&#10;along with Yabai.  If not, see &lt;https://www.gnu.org/licenses/&gt;." />
+    <option name="myName" value="AGPL-3.0" />
+  </copyright>
+</component>

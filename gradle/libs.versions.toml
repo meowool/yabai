@@ -1,6 +1,7 @@
 [versions]
 kotlin = "1.9.10"
 androidx-activity = "1.8.0-rc01"
+dagger-hilt = "2.47"
 
 [libraries]
 ### Kotlin
@@ -24,6 +25,9 @@ androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-material = { module = "androidx.compose.material:material" }
+### Square
+google-dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
+google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger-hilt" }
 ### Build system
 # This is basically only used in modules related to "building logic"
 android-desugar = "com.android.tools:desugar_jdk_libs_nio:2.0.3"
@@ -33,11 +37,12 @@ android-gradle-plugin = "com.android.tools.build:gradle:8.1.1"
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ### Others
 fastutil = "it.unimi.dsi:fastutil:8.5.12"
-flippable = "com.wajahatkarim:flippable:1.0.6"
 
 [plugins]
 ### Build system
-google-ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
+ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
+hilt = "com.google.dagger.hilt.android:2.47"
+spotless = "com.diffplug.spotless:6.21.0"
 
 [bundles]
 androidx-compose = ["androidx-compose-material", "androidx-compose-ui-util"]

@@ -10,6 +10,8 @@ gradle/build-logic/build/
 
 ## IDEA config files
 /.idea/**
+!/.idea/copyright/
+!/.idea/copyright/**
 !/.idea/codeStyles/
 !/.idea/codeStyles/**
 !/.idea/inspectionProfiles/
@@ -17,7 +19,6 @@ gradle/build-logic/build/
 !/.idea/runConfigurations/
 !/.idea/runConfigurations/**
 # Plugins
-!/.idea/ktlint.xml
 !/.idea/gradle.xml
 
 ### Mac OS ###
