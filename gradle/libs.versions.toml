@@ -1,0 +1,43 @@
+[versions]
+kotlin = "1.9.10"
+androidx-activity = "1.8.0-rc01"
+
+[libraries]
+### Kotlin
+kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+### AndroidX
+androidx-core = "androidx.core:core-ktx:1.12.0"
+androidx-annotation = "androidx.annotation:annotation:1.7.0"
+androidx-test-core = "androidx.test:core-ktx:1.6.0-alpha02"
+androidx-test-rules = "androidx.test:rules:1.6.0-alpha01"
+androidx-test-runner = "androidx.test:runner:1.6.0-alpha04"
+androidx-test-ext-junit = "androidx.test.ext:junit-ktx:1.2.0-alpha01"
+androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+### Compose
+# Use https://github.com/chrisbanes/compose-bom instead of the official one because Jetpack Compose
+# itself is not stable, so there is no reason to use false "stable" versions :)
+androidx-compose-bom = "dev.chrisbanes.compose:compose-bom:2023.10.00-alpha02"
+androidx-compose-compiler = "androidx.compose.compiler:compiler:1.5.3"
+androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-compose-material = { module = "androidx.compose.material:material" }
+### Build system
+# This is basically only used in modules related to "building logic"
+android-desugar = "com.android.tools:desugar_jdk_libs_nio:2.0.3"
+# IDEA does not support the latest bleeding-edge versions, so we will choose a relatively advanced version
+# noinspection AndroidGradlePluginVersion
+android-gradle-plugin = "com.android.tools.build:gradle:8.1.1"
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+### Others
+fastutil = "it.unimi.dsi:fastutil:8.5.12"
+flippable = "com.wajahatkarim:flippable:1.0.6"
+
+[plugins]
+### Build system
+google-ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
+
+[bundles]
+androidx-compose = ["androidx-compose-material", "androidx-compose-ui-util"]
