@@ -17,13 +17,14 @@
  * along with Yabai.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import com.android.build.api.dsl.AndroidSourceSet
 import com.android.build.gradle.BasePlugin
 import internal.androidBaseExtension
 import internal.args
+import internal.configureDetektSource
 import internal.configureJvmToolchain
 import internal.configureKotlinCompile
 import internal.libs
+import internal.lintCodeStyle
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
@@ -38,9 +39,11 @@ allprojects {
     sonatypeSnapshots()
   }
 
+  lintCodeStyle()
   configureCompile()
   configureSourceSets()
   configureBuildDirectory()
+  configureCleanTask()
 
   afterEvaluate {
     alignVersions()
@@ -52,15 +55,17 @@ allprojects {
  * We can delete all empty directories when running the root `clean` task,
  * and we have no concerns about this.
  */
-tasks.register<Delete>("clean") {
-  delete = projectDir.walk().filter {
-    it.isDirectory &&
-      it.name != ".git" &&
-      it.name != ".idea" &&
-      it.name != ".gradle" &&
-      it.name != ".build" &&
-      it.listFiles()?.isEmpty() == true
-  }.toSet()
+fun configureCleanTask() {
+  tasks.maybeCreate<Delete>("clean").apply {
+    delete = projectDir.walk().filter {
+      it.isDirectory &&
+        it.name != ".git" &&
+        it.name != ".idea" &&
+        it.name != ".gradle" &&
+        it.name != ".build" &&
+        it.listFiles()?.isEmpty() == true
+    }.toSet()
+  }
 }
 
 /**
@@ -99,9 +104,14 @@ fun Project.configureSourceSets() {
   plugins.withType<KotlinBasePlugin> {
     extensions.configure<KotlinProjectExtension> {
       sourceSets.configureEach {
-        kotlin.srcDir("$name/kotlin")
+        fun kotlin(srcDir: String) {
+          kotlin.srcDir(srcDir)
+          project.configureDetektSource(srcDir)
+        }
+
+        kotlin("$name/kotlin")
         resources.srcDir("$name/resources")
-        if (name == "main") kotlin.srcDir("kotlin")
+        if (name == "main") kotlin("kotlin")
       }
     }
     if (this !is KotlinMultiplatformPluginWrapper) dependencies {
@@ -112,22 +122,28 @@ fun Project.configureSourceSets() {
   plugins.withType<BasePlugin> {
     androidBaseExtension {
       sourceSets.configureEach {
-        fun AndroidSourceSet.configure(name: String) {
+        fun kotlin(srcDir: String) {
+          kotlin.srcDir(srcDir)
+          project.configureDetektSource(srcDir)
+        }
+
+        fun configure(name: String) {
           res.srcDir("$name/res")
           java.srcDir("$name/java")
           jniLibs.srcDir("$name/jni")
-          kotlin.srcDir("$name/kotlin")
           assets.srcDir("$name/assets")
           resources.srcDir("$name/resources")
           manifest.srcFile("$name/AndroidManifest.xml")
           baselineProfiles.srcDir("$name/baseline")
+
+          kotlin("$name/kotlin")
         }
         when (name) {
           "test" -> configure("unitTest")
           "androidTest" -> configure("instrumentTest")
           else -> {
             configure(name)
-            if (name == "main") kotlin.srcDir("kotlin")
+            if (name == "main") kotlin("kotlin")
           }
         }
       }

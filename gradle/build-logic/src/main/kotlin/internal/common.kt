@@ -64,3 +64,6 @@ internal fun KotlinCompile<*>.pluginArgs(pluginId: String, vararg args: Pair<Str
     .flatten()
     .toTypedArray()
 )
+
+internal fun Project.miscFile(path: String) =
+  rootProject.layout.projectDirectory.file("misc/$path").asFile

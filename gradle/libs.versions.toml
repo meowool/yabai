@@ -2,6 +2,7 @@
 kotlin = "1.9.10"
 androidx-activity = "1.8.0-rc01"
 dagger-hilt = "2.47"
+detekt = "1.23.1"
 
 [libraries]
 ### Kotlin
@@ -37,12 +38,16 @@ android-gradle-plugin = "com.android.tools.build:gradle:8.1.1"
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ### Others
 fastutil = "it.unimi.dsi:fastutil:8.5.12"
+## Detekt
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+detekt-compose = "io.nlopez.compose.rules:detekt:0.3.0"
 
 [plugins]
 ### Build system
 ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
 hilt = "com.google.dagger.hilt.android:2.47"
-spotless = "com.diffplug.spotless:6.21.0"
+detekt = { id = "io.github.detekt.gradle.compiler-plugin", version.ref = "detekt" }
+download = "de.undercouch.download:5.5.0"
 
 [bundles]
 androidx-compose = ["androidx-compose-material", "androidx-compose-ui-util"]

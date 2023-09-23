@@ -24,7 +24,8 @@ dependencies {
     libs.gradle.kotlin.dsl,
     libs.kotlin.gradle.plugin,
     libs.android.gradle.plugin,
-    libs.plugins.spotless,
+    libs.plugins.download,
+    libs.plugins.detekt,
     libs.plugins.hilt,
     libs.plugins.ksp,
 
