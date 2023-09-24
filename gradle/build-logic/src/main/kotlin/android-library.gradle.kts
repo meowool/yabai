@@ -17,12 +17,12 @@
  * along with Yabai.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import internal.init
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper
 
 apply<LibraryPlugin>()
 apply<KotlinAndroidPluginWrapper>()

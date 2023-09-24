@@ -60,7 +60,7 @@ internal fun KotlinCompile<*>.args(vararg args: String) = kotlinOptions {
 }
 
 internal fun KotlinCompile<*>.pluginArgs(pluginId: String, vararg args: Pair<String, Any>) = args(
-  *args.map { (key, value) -> listOf("-P", "plugin:$pluginId:$key=$value") }
+  args = args.map { (key, value) -> listOf("-P", "plugin:$pluginId:$key=$value") }
     .flatten()
     .toTypedArray()
 )

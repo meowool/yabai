@@ -80,10 +80,12 @@ internal fun BaseExtension.init(project: Project) = with(project) {
   dependencies {
     "implementation"(libs.androidx.core)
     // https://developer.android.com/jetpack/androidx/releases/test#declaring_dependencies
-    "androidTestImplementation"(libs.androidx.test.core)
-    "androidTestImplementation"(libs.androidx.test.runner)
-    "androidTestImplementation"(libs.androidx.test.rules)
-    "androidTestImplementation"(libs.androidx.test.ext.junit)
+    arrayOf(
+      libs.androidx.test.core,
+      libs.androidx.test.runner,
+      libs.androidx.test.rules,
+      libs.androidx.test.ext.junit,
+    ).forEach { "androidTestImplementation"(it) }
   }
 }
 

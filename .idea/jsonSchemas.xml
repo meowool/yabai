@@ -14,6 +14,9 @@
                   <Item>
                     <option name="path" value="misc/config/detekt.yml" />
                   </Item>
+                  <Item>
+                    <option name="path" value="misc/detekt/config.yml" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>

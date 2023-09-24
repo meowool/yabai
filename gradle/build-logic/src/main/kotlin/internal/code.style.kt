@@ -20,6 +20,7 @@
 package internal
 
 import com.meowool.cradle.util.isCiEnvironment
+import io.github.detekt.gradle.DetektKotlinCompilerPlugin
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Project
@@ -29,13 +30,12 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 
 internal fun Project.lintCodeStyle() = plugins.withType<KotlinBasePlugin> {
-  apply<DetektPlugin>()
+  apply<DetektKotlinCompilerPlugin>()
   addDetektPlugin(libs.detekt.formatting)
 
   extensions.configure<DetektExtension> {
     buildUponDefaultConfig = true
     parallel = !isCiEnvironment
-    baseline = miscFile("detekt/baseline.xml")
     config.from(miscFile("detekt/config.yml"))
   }
 }

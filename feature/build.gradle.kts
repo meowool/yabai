@@ -21,4 +21,3 @@ subprojects {
   // All feature modules depend on UI, so we just import it
   afterEvaluate { dependencies.add("implementation", projects.core.ui) }
 }
-
