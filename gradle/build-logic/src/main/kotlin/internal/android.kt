@@ -21,7 +21,6 @@ package internal
 
 import com.android.build.api.dsl.ApplicationDefaultConfig
 import com.android.build.api.dsl.CommonExtension
-import com.meowool.cradle.util.isCiEnvironment
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
@@ -52,22 +51,9 @@ internal fun BaseExtension.init(project: Project) = with(project) {
       // Android users.
       targetSdk = compileSdk
     }
-    minSdk = when {
-      // We choose to distribute APKs with different min-sdk versions through CI,
-      // and use desugar-tools to ensure code compatibility for lower versions.
-      isCiEnvironment -> requireNotNull(providers.environmentVariable("ANDROID_MIN_SDK").orNull) {
-        "The env `ANDROID_MIN_SDK` is required when running on CI."
-      }.toInt().also {
-        // Desugar is only required if the app's min-sdk is less than 26:
-        // https://developer.android.com/studio/write/java8-support#supported_features
-        if (it < 26) {
-          compileOptions.isCoreLibraryDesugaringEnabled = true
-          dependencies.add("coreLibraryDesugaring", libs.android.desugar)
-        }
-      }
-      // We default to raising the minimum version to Android Oreo (8.0).
-      else -> 26
-    }
+    // Raise the minimum version to Android Oreo (8.0) because my friend told me that users
+    // who cannot afford to buy a new phone are not our target audience. XD
+    minSdk = 26
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
   compileOptions {
