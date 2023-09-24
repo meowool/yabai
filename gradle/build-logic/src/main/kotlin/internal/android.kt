@@ -95,22 +95,12 @@ internal fun BaseExtension.enableCompose(project: Project) = with(project) {
   composeOptions.kotlinCompilerExtensionVersion = compose.compiler.orNull?.version
     ?: error("Compose compiler version not found.")
 
-  val detektPlugin = libs.detekt.compose
-  val detektPluginVersion = detektPlugin.get().version
-  addDetektPlugin(detektPlugin)
-  addDetektPluginJar(
-    buildString {
-      append("https://github.com/mrmans0n/compose-rules/releases/download/v")
-      append(detektPluginVersion)
-      append("/detekt-compose-")
-      append(detektPluginVersion)
-      append("-all.jar")
-    }
-  )
-
   dependencies {
     "implementation"(platform(composeBom))
     "implementation"(libs.bundles.androidx.compose)
+
+    // We use Detekt to detect the code style of Jetpack-Compose
+    addDetektPlugin(libs.detekt.compose)
   }
 
   // Configure the Compose compiler reports

@@ -19,7 +19,9 @@ gradle/build-logic/build/
 !/.idea/runConfigurations/
 !/.idea/runConfigurations/**
 # Plugins
+!/.idea/jsonSchemas.xml
 !/.idea/gradle.xml
+!/.idea/detekt.xml
 
 ### Mac OS ###
 .DS_Store

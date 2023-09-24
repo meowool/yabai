@@ -20,43 +20,28 @@
 package internal
 
 import com.meowool.cradle.util.isCiEnvironment
-import de.undercouch.gradle.tasks.download.Download
-import de.undercouch.gradle.tasks.download.DownloadTaskPlugin
-import io.github.detekt.gradle.DetektKotlinCompilerPlugin
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 
-private const val DownloadPluginJarTask = "copyDetektPlugins"
-
 internal fun Project.lintCodeStyle() = plugins.withType<KotlinBasePlugin> {
   apply<DetektPlugin>()
-  apply<DownloadTaskPlugin>()
   addDetektPlugin(libs.detekt.formatting)
+
   extensions.configure<DetektExtension> {
+    buildUponDefaultConfig = true
     parallel = !isCiEnvironment
     baseline = miscFile("detekt/baseline.xml")
     config.from(miscFile("detekt/config.yml"))
-  }
-  tasks.register<Download>(DownloadPluginJarTask) {
-    dest(miscFile("detekt/plugins"))
   }
 }
 
 internal fun Project.addDetektPlugin(dependency: Any) =
   plugins.withType<DetektPlugin> { dependencies.add("detektPlugins", dependency) }
-
-
-internal fun Project.addDetektPluginJar(url: String) =
-  plugins.withType<DetektPlugin> {
-    tasks.named<Download>(DownloadPluginJarTask) { src(arrayOf(url, src)) }
-  }
 
 internal fun Project.configureDetektSource(path: Any) =
   plugins.withType<DetektPlugin> {

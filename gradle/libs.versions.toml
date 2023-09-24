@@ -47,7 +47,6 @@ detekt-compose = "io.nlopez.compose.rules:detekt:0.3.0"
 ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
 hilt = "com.google.dagger.hilt.android:2.47"
 detekt = { id = "io.github.detekt.gradle.compiler-plugin", version.ref = "detekt" }
-download = "de.undercouch.download:5.5.0"
 
 [bundles]
 androidx-compose = ["androidx-compose-material", "androidx-compose-ui-util"]
