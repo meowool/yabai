@@ -19,6 +19,7 @@
 
 // The meaning of this file is very simple, just to map the names of all
 // precompiled plugins in build-logic.
+val kotlinJvm inline get() = "kotlin-jvm"
 val androidLibrary inline get() = "android-library"
 val androidApplication inline get() = "android-application"
 val androidComposeLibrary inline get() = "android-compose-library"
