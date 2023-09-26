@@ -77,6 +77,9 @@ potential-bugs:
     active: true
   MissingPackageDeclaration:
     active: true
+    excludes:
+      - 'gradle/build-logic/src/main/kotlin/plugins.kt'
+      - '**/*.gradle.kts'
   NullCheckOnMutableProperty:
     active: true
   NullableToStringCall:

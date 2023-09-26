@@ -18,9 +18,8 @@ gradle/build-logic/build/
 !/.idea/inspectionProfiles/**
 !/.idea/runConfigurations/
 !/.idea/runConfigurations/**
-# Plugins
 !/.idea/jsonSchemas.xml
-!/.idea/gradle.xml
+# Plugins
 !/.idea/detekt.xml
 
 ### Mac OS ###

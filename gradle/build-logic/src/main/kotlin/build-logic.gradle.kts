@@ -104,29 +104,16 @@ fun Project.configureSourceSets() {
   plugins.withType<KotlinBasePlugin> {
     extensions.configure<KotlinProjectExtension> {
       sourceSets.configureEach {
-        fun kotlin(srcDir: String) {
-          kotlin.srcDir(srcDir)
-          project.configureDetektSource(srcDir)
-        }
-
-        kotlin("$name/kotlin")
         resources.srcDir("$name/resources")
-        if (name == "main") kotlin("kotlin")
+        kotlin.srcDir("$name/kotlin")
+        project.configureDetektSource("$name/kotlin")
       }
-    }
-    if (this !is KotlinMultiplatformPluginWrapper) dependencies {
-      "implementation"(platform(libs.kotlin.bom))
     }
   }
   // For Android projects
   plugins.withType<BasePlugin> {
     androidBaseExtension {
       sourceSets.configureEach {
-        fun kotlin(srcDir: String) {
-          kotlin.srcDir(srcDir)
-          project.configureDetektSource(srcDir)
-        }
-
         fun configure(name: String) {
           res.srcDir("$name/res")
           java.srcDir("$name/java")
@@ -136,15 +123,13 @@ fun Project.configureSourceSets() {
           manifest.srcFile("$name/AndroidManifest.xml")
           baselineProfiles.srcDir("$name/baseline")
 
-          kotlin("$name/kotlin")
+          kotlin.srcDir("$name/kotlin")
+          project.configureDetektSource("$name/kotlin")
         }
         when (name) {
           "test" -> configure("unitTest")
           "androidTest" -> configure("instrumentTest")
-          else -> {
-            configure(name)
-            if (name == "main") kotlin("kotlin")
-          }
+          else -> configure(name)
         }
       }
     }
@@ -155,7 +140,6 @@ fun Project.configureSourceSets() {
       configureEach {
         java.srcDir("$name/java")
         resources.srcDir("$name/resources")
-        if (name == "main") java.srcDir("java")
       }
     }
   }
@@ -175,15 +159,11 @@ fun Project.configureCompile() {
 fun Project.alignVersions() {
   // For Kotlin multiplatform projects
   plugins.withType<KotlinMultiplatformPluginWrapper> {
-    dependencies {
-      "commonMainImplementation"(platform(libs.kotlin.bom))
-    }
+    dependencies { "commonMainImplementation"(platform(libs.kotlin.bom)) }
   }
   // For general JVM projects
   plugins.withType<JavaBasePlugin> {
-    dependencies {
-      "implementation"(platform(libs.kotlin.bom))
-    }
+    dependencies { "implementation"(platform(libs.kotlin.bom)) }
   }
 }
 
