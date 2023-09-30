@@ -17,20 +17,32 @@
  * along with Yabai.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+@file:Suppress("SpellCheckingInspection")
 
-includeBuild("gradle/build-logic")
-includeAllProjects {
-  // We avoid importing R8 directly as a subproject because its Gradle scripts
-  // are not compatible with ours. Instead, we have our own "r8-hosted".
-  exclude("third-party/r8")
+plugins {
+  id(kotlinJvm)
 }
 
-pluginManagement.repositories {
-  gradlePluginPortal()
-  mavenCentral()
-  google()
+dependencies {
+  // The following dependencies are required by the Google R8 project:
+  implementationOf(
+    libs.bundles.asm,
+    libs.google.gson,
+    libs.google.guava,
+    libs.kotlin.metadata,
+    libs.fastutil config {
+      // As of now, we strictly follow the fastutil version used by R8,
+      // because R8's code is not compatible with the new version
+      version { strictly("7.2.1") }
+    },
+  )
 }
 
-rootProject.name = "yabai"
+sourceSets.main {
+  java {
+    srcDirs("keepanno/java")
+    // Exclude R8's old setup
+    // https://r8.googlesource.com/r8/+/refs/heads/main/build.gradle#55
+    exclude("com/android/tools/r8/utils/resourceshrinker/*.java")
+  }
+}

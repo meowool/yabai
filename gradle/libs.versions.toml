@@ -3,11 +3,13 @@ kotlin = "1.9.10"
 androidx-activity = "1.8.0-rc01"
 dagger-hilt = "2.47"
 detekt = "1.23.1"
+asm = "9.5"
 
 [libraries]
 ### Kotlin
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.7.0"
 ### AndroidX
 androidx-core = "androidx.core:core-ktx:1.12.0"
 androidx-annotation = "androidx.annotation:annotation:1.7.0"
@@ -26,9 +28,11 @@ androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-material = { module = "androidx.compose.material:material" }
-### Square
+### Google
 google-dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger-hilt" }
+google-guava = "com.google.guava:guava:32.1.2-jre"
+google-gson = "com.google.code.gson:gson:2.10.1"
 ### Build system
 # This is basically only used in modules related to "building logic"
 android-desugar = "com.android.tools:desugar_jdk_libs_nio:2.0.3"
@@ -41,6 +45,11 @@ fastutil = "it.unimi.dsi:fastutil:8.5.12"
 ## Detekt
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 detekt-compose = "io.nlopez.compose.rules:detekt:0.3.0"
+asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+asm-analysis = { module = "org.ow2.asm:asm-analysis", version.ref = "asm" }
+asm-commons = { module = "org.ow2.asm:asm-commons", version.ref = "asm" }
+asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
+asm-util = { module = "org.ow2.asm:asm-util", version.ref = "asm" }
 
 [plugins]
 ### Build system
@@ -50,3 +59,4 @@ detekt = { id = "io.github.detekt.gradle.compiler-plugin", version.ref = "detekt
 
 [bundles]
 androidx-compose = ["androidx-compose-material", "androidx-compose-ui-util"]
+asm = ["asm", "asm-analysis", "asm-commons", "asm-tree", "asm-util"]

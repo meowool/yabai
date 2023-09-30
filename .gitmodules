@@ -1,0 +1,3 @@
+[submodule "third-party/r8"]
+	path = third-party/r8
+	url = https://r8.googlesource.com/r8

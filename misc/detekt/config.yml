@@ -3,6 +3,7 @@ build:
   excludeCorrectable: false
   excludes: &ExcludePatterns
     - 'gradle/build-logic/**'
+    - 'third-party/**'
 
 # https://detekt.dev/docs/rules/comments
 comments:
@@ -63,6 +64,8 @@ naming:
   TopLevelPropertyNaming:
     active: true
     constantPattern: '[A-Za-z][_A-Za-z0-9]*'
+  MatchingDeclarationName:
+    active: false
 
 # https://detekt.dev/docs/rules/performance
 performance:
