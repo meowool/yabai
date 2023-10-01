@@ -24,9 +24,9 @@ dependencies {
     libs.gradle.kotlin.dsl,
     libs.kotlin.gradle.plugin,
     libs.android.gradle.plugin,
+    libs.plugins.google.hilt,
+    libs.plugins.google.ksp,
     libs.plugins.detekt,
-    libs.plugins.hilt,
-    libs.plugins.ksp,
 
     platform(libs.kotlin.bom),
     // A workaround to enable version catalog usage in the convention plugin,

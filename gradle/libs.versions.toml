@@ -1,7 +1,10 @@
 [versions]
 kotlin = "1.9.10"
 androidx-activity = "1.8.0-rc01"
-dagger-hilt = "2.47"
+google-ksp = "1.9.10-1.0.13"
+square-kotlinpoet = "1.14.2"
+google-hilt = "2.47"
+auto-service = "1.1.0"
 detekt = "1.23.1"
 asm = "9.5"
 
@@ -29,10 +32,14 @@ androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-material = { module = "androidx.compose.material:material" }
 ### Google
-google-dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
-google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger-hilt" }
+google-dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "google-hilt" }
+google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "google-hilt" }
 google-guava = "com.google.guava:guava:32.1.2-jre"
 google-gson = "com.google.code.gson:gson:2.10.1"
+google-ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "google-ksp" }
+### Square
+square-kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "square-kotlinpoet" }
+square-kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "square-kotlinpoet" }
 ### Build system
 # This is basically only used in modules related to "building logic"
 android-desugar = "com.android.tools:desugar_jdk_libs_nio:2.0.3"
@@ -50,11 +57,13 @@ asm-analysis = { module = "org.ow2.asm:asm-analysis", version.ref = "asm" }
 asm-commons = { module = "org.ow2.asm:asm-commons", version.ref = "asm" }
 asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
 asm-util = { module = "org.ow2.asm:asm-util", version.ref = "asm" }
+auto-service = { module = "dev.zacsweers.autoservice:auto-service-ksp", version.ref = "auto-service" }
+auto-service-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service" }
 
 [plugins]
 ### Build system
-ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
-hilt = "com.google.dagger.hilt.android:2.47"
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
+google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "google-hilt" }
 detekt = { id = "io.github.detekt.gradle.compiler-plugin", version.ref = "detekt" }
 
 [bundles]
