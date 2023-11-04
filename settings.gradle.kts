@@ -21,11 +21,7 @@ enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 includeBuild("gradle/build-logic")
-includeAllProjects {
-  // We avoid importing R8 directly as a subproject because its Gradle scripts
-  // are not compatible with ours. Instead, we have our own "r8-hosted".
-  exclude("third-party/r8")
-}
+includeAllProjects()
 
 pluginManagement.repositories {
   gradlePluginPortal()

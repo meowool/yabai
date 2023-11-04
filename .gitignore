@@ -2,6 +2,7 @@
 .gradle/
 .build/
 gradle/build-logic/build/
+/local.properties
 
 ### IntelliJ IDEA ###
 *.iws

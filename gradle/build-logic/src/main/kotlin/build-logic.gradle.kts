@@ -46,6 +46,16 @@ allprojects {
   configureCleanTask()
 
   afterEvaluate {
+    // https://ci.chromium.org/ui/p/r8/builders/ci/archive/
+    // Delay configuration, so that we can avoid errors caused by `libs` being loaded
+    // at the root module.
+    repositories.maven("https://storage.googleapis.com/r8-releases/raw/main") {
+      content {
+        libs.android.r8
+          .get().module
+          .apply { includeModule(group, name) }
+      }
+    }
     alignVersions()
   }
 }
