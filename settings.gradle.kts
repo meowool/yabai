@@ -21,7 +21,15 @@ enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 includeBuild("gradle/build-logic")
-includeAllProjects()
+
+// Include all possible subprojects (excluding root project, hidden directories,
+// and composite build directories)
+rootDir.walkTopDown()
+  .onEnter { it.name.first() != '.' && !it.path.endsWith("gradle/build-logic") }
+  .filter { it.isDirectory && it.resolve("build.gradle.kts").exists() }
+  .map { it.relativeTo(rootDir).path.replace(File.separatorChar, ':') }
+  .filter { it.isNotEmpty() }
+  .forEach { include(":$it") }
 
 pluginManagement.repositories {
   gradlePluginPortal()

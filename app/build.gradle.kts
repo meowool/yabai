@@ -29,9 +29,9 @@ android {
   }
 }
 
-dependencies.implementationOf(
+arrayOf(
   projects.core.ui,
   projects.feature.home,
   projects.feature.repository,
   projects.feature.preference,
-)
+).forEach(dependencies::implementation)

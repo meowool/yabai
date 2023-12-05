@@ -25,7 +25,7 @@ import internal.configureJvmToolchain
 import internal.configureKotlinCompile
 import internal.libs
 import internal.lintCodeStyle
-import org.gradle.api.artifacts.repositories.MavenArtifactRepository
+import internal.sonatypeSnapshots
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
@@ -51,9 +51,9 @@ allprojects {
     // at the root module.
     repositories.maven("https://storage.googleapis.com/r8-releases/raw/main") {
       content {
-        libs.android.r8
-          .get().module
-          .apply { includeModule(group, name) }
+        with(libs.android.r8.get().module) {
+          includeModule(group, name)
+        }
       }
     }
     alignVersions()
@@ -158,7 +158,6 @@ fun Project.configureSourceSets() {
 fun Project.configureCompile() {
   configureJvmToolchain()
   // Add experimental language features to Kotlin projects
-  @Suppress("SpellCheckingInspection")
   configureKotlinCompile { args("-Xcontext-receivers") }
 }
 

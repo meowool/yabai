@@ -19,7 +19,6 @@
 
 package internal
 
-import com.meowool.cradle.util.isCiEnvironment
 import io.github.detekt.gradle.DetektKotlinCompilerPlugin
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension

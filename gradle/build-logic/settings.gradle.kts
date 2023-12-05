@@ -17,6 +17,8 @@
  * along with Yabai.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import org.gradle.kotlin.dsl.support.expectedKotlinDslPluginsVersion
+
 dependencyResolutionManagement {
   repositories {
     google {
@@ -36,7 +38,7 @@ dependencyResolutionManagement {
       from(files("../libs.versions.toml"))
       library(
         "gradle-kotlin-dsl",
-        "org.gradle.kotlin:gradle-kotlin-dsl-plugins:$expectedKotlinDslPluginsVersion"
+        "org.gradle.kotlin:gradle-kotlin-dsl-plugins:$expectedKotlinDslPluginsVersion",
       )
     }
   }

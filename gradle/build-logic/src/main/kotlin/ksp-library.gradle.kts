@@ -17,12 +17,13 @@
  * along with Yabai.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// The meaning of this file is very simple, just to map the names of all
-// precompiled plugins in build-logic.
-val kotlinJvm inline get() = "kotlin-jvm"
-val androidLibrary inline get() = "android-library"
-val androidApplication inline get() = "android-application"
-val androidComposeLibrary inline get() = "android-compose-library"
-val androidComposeApplication inline get() = "android-compose-application"
-val ksp inline get() = "ksp"
-val kspLibrary inline get() = "ksp-library"
+import internal.libs
+
+apply(plugin = ksp)
+apply(plugin = kotlinJvm)
+
+dependencies {
+  "implementation"(libs.google.ksp)
+  "implementation"(libs.auto.service.annotations)
+  "ksp"(libs.auto.service)
+}

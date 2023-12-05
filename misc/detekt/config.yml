@@ -2,8 +2,7 @@ build:
   maxIssues: 0
   excludeCorrectable: false
   excludes: &ExcludePatterns
-    - 'gradle/build-logic/**'
-    - 'third-party/**'
+    - './third-party/**'
 
 # https://detekt.dev/docs/rules/comments
 comments:
@@ -81,7 +80,7 @@ potential-bugs:
   MissingPackageDeclaration:
     active: true
     excludes:
-      - 'gradle/build-logic/src/main/kotlin/plugins.kt'
+      - './gradle/build-logic/src/main/kotlin/plugins.kt'
       - '**/*.gradle.kts'
   NullCheckOnMutableProperty:
     active: true
@@ -185,6 +184,12 @@ formatting:
     indentSize: 2
   NoEmptyFirstLineInClassBody:
     active: true
+  ArgumentListWrapping:
+    active: false
+  Wrapping:
+    active: false
+  TrailingCommaOnDeclarationSite:
+    active: false
   # These rules are duplicated with Detekt's standard rules, so just disable them
   Filename:
     active: false
